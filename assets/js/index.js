@@ -8,22 +8,48 @@ function loadOptions(langArray) {
     i = 0,
     il = langArray.length;
 
+  $("#choice").text("Escolha uma moeda");
   for (; i < il; i += 1) {
     option = document.createElement("option");
-    option.setAttribute("value", langArray[i].value);
-    option.appendChild(document.createTextNode(langArray[i].text));
+    option.setAttribute("value", langArray[i].code);
+    option.appendChild(document.createTextNode(langArray[i].name));
     select.appendChild(option);
   }
 }
 
 function requestOptions() {
-  $.getJSON("ajax/test.json", function (data) {
-    var items = [];
-    console.log(data)
-    loadOptions(langArray);
+  $.getJSON("https://br-coins.herokuapp.com/api/price/code", function (data) {
+    loadOptions(data);
   });
 }
 
 $(document).ready(function () {
-    requestOptions()
+  requestOptions();
 });
+
+function getValue() {
+  const code = $("#select").val();
+  const codeName = $("#select option:selected").text();
+  const codeNames = codeName.split(" ")[0].toLowerCase() + 's'
+  const value = $("#value").val();
+  if (!code || !value) {
+    Swal.fire({
+        icon: "error",
+        title: "Ops...",
+        html: `Preencha os campos corretamente`,
+      });
+    return;
+  }
+  Swal.showLoading();
+  $.getJSON(
+    `https://br-coins.herokuapp.com/api/price/${code}/${value}`,
+    function (data) {
+      Swal.fire({
+        icon: "success",
+        title: codeName,
+        html: `${value} reais convertido para ${codeName} é equivalente a <b>${data.ask} ${codeNames}</b>`,
+        footer: `1 ${codeName} equivale a ${data.value} reais`,
+      });
+    }
+  );
+}

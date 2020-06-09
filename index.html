@@ -6,8 +6,9 @@
     <title>Coins G&G</title>
     <link rel='stylesheet' href='/assets/css/bare.min.css' />
     <link rel="stylesheet" href="/assets/css/style.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" after></script>
-    <script src="assets/js/index.js" after></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9" defer></script>
+    <script src="assets/js/index.js" defer></script>
 </head>
 <body>
     <section txt="c">
@@ -17,16 +18,16 @@
                     <card>
                         <label for="usuario" txt="c">COIS G&G</label>
                         <br>
-                        <label for="number" txt="l">Valor</label>
+                        <label for="number" txt="l">Valor em reais</label>
                         <input type="number" name="value" id="value" placeholder="a ser convertido, ex: 100" required>
-                        <label for="number" txt="l">Para</label>
-                        <select name="" id="select">
-                            <option value="" disabled>Escolha uma moeda</option>
+                        <label for="number" txt="l">Em</label>
+                        <select name="" id="select" required>
+                            <option value="" id="choice" disabled>Carregando...</option>
                         </select>
 
                         <br><br>
     
-                        <button btn type="submit">Converter</button>
+                        <button btn onclick="getValue()" type="submit">Converter</button>
                     </card>
                 </div>
         </grid>
