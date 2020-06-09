@@ -47,8 +47,8 @@ function getValue() {
       Swal.fire({
         icon: "success",
         title: codeName,
-        html: `${value} reais convertido para ${codeName} é equivalente a <b>${data.ask} ${codeNames}</b>`,
-        footer: `1 ${codeName} equivale a ${data.value} reais`,
+        html: `${value} reais convertido para ${codeName} é equivalente a aproximadamente <b>${data.ask.toFixed(2)} ${codeNames}</b>`,
+        footer: `1 ${codeName} equivale a ${data.value.toFixed(2)} reais`,
       });
     }
   );
